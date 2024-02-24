@@ -1,4 +1,4 @@
-# logo
+# Logo Application
 
 how to run:
 

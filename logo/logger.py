@@ -1,14 +1,18 @@
-# import logging
-# import os
-# from logging import Logger
-#
-# from flask import current_app
-# from werkzeug.local import LocalProxy
-#
-# logger: Logger = LocalProxy(lambda: current_app.logger)
-#
-#
-# def get_logging_level():
-#     level_name = os.environ.get('LOG_LEVEL')
-#     if level_name:
-#         return logging.getLevelName(level_name)
+from logging import StreamHandler, LogRecord
+
+from requests import RequestException
+
+from logo.base_centralized_log_service import LogStashLogService
+
+
+class CustomLoggerHandler(StreamHandler):
+    def __init__(self, address: str, port: int):
+        super().__init__()
+        self.centralized_log_service = LogStashLogService(address, port).init_service()
+
+    def emit(self, record: LogRecord) -> None:
+        message = self.format(record)
+        try:
+            self.centralized_log_service.send_request(message)
+        except RequestException as e:
+            self.stream.write(f'Failed sending message to logstash {str(e)}')
