@@ -13,7 +13,7 @@ if __name__ == "__main__":
 
     while True:
         try:
-            message = str(input("Your Log: "))
+            message = dict(input("Your Log: "))
             send_log_message(message, server_address, server_port)
         except KeyboardInterrupt:
             print("Finished sending your logs")
