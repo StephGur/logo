@@ -4,7 +4,7 @@ import config
 from logo.centralized_log_service.custom_logger_handler import CustomLoggerHandler
 from logo.logging import logger
 from logo.tcp_logger.tcp_log_handler import TcpLogHandler
-from logo.tcp_logger.tcp_log_server import ThreadedTcpLogServer
+from logo.tcp_logger.threaded_tcp_log_server import ThreadedTcpLogServer
 
 
 def init_logger(logger: logging.Logger):

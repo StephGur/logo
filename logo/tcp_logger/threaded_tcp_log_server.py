@@ -1,4 +1,4 @@
-from socketserver import TCPServer, ThreadingTCPServer
+from socketserver import ThreadingTCPServer
 
 
 class ThreadedTcpLogServer(ThreadingTCPServer):
