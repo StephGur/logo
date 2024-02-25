@@ -11,7 +11,7 @@ class CustomLoggerHandler(StreamHandler):
         self.centralized_log_service = LogStashLogService(address, port).init_service()
 
     def emit(self, record: LogRecord) -> None:
-        message = self.format(record)
+        message: str = self.format(record)
         try:
             self.centralized_log_service.send_request(message)
         except RequestException as e:

@@ -1,10 +1,8 @@
 # Logo Application
 
-how to run:
+How to run:
 
-run the server
-run the client
-
-start writing your logs 
-
-all the logs will be writer to a text-file
+1. git clone the project
+2. Install requirements with pip install -r requirements.txt
+3. Run the server - will listen to incoming logs on port 1313
+4. Run the client and start writing your messages :)

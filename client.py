@@ -2,12 +2,11 @@ import socket
 
 
 def send_log_message(message: str, server_address: str, server_port: int):
-    data = []
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as client_socket:
         client_socket.connect((server_address, server_port))
         client_socket.send(message.encode('utf-8'))
-        data = client_socket.recv(1024)
-        print(data.decode())
+        response = client_socket.recv(1024)
+        print(response.decode())
 
 
 if __name__ == "__main__":

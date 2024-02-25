@@ -21,5 +21,3 @@ if __name__ == "__main__":
     server_address: tuple[str, int] = (config.LOGO_CONFIG.HOST_NAME, config.LOGO_CONFIG.PORT)
     with ThreadedTcpLogServer(server_address, TcpLogHandler) as server:
         server.serve_forever()
-
-
