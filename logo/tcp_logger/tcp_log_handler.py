@@ -2,9 +2,9 @@ import logging
 from datetime import datetime
 from socketserver import BaseRequestHandler
 
+from logo.logging import logger
 
 TIME_FORMAT = "%Y-%m-%d %H:%M:%S"
-logger = logging.getLogger('lol')
 
 
 class TcpLogHandler(BaseRequestHandler):

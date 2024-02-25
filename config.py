@@ -7,6 +7,7 @@ class BaseConfig:
     LOG_FORMAT = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
     LOG_LEVEL = 'INFO'
     TIME_FORMAT = "%Y-%m-%d %H:%M:%S"
+    LOGGER_NAME = 'logo'
 
 
 class LocalConfig(BaseConfig):

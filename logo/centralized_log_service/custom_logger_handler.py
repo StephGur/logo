@@ -2,7 +2,7 @@ from logging import StreamHandler, LogRecord
 
 from requests import RequestException
 
-from logo.base_centralized_log_service import LogStashLogService
+from logo.centralized_log_service.base_centralized_log_service import LogStashLogService
 
 
 class CustomLoggerHandler(StreamHandler):
