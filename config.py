@@ -5,6 +5,7 @@ class BaseConfig:
     TIMESTAMP_FORMAT = "%Y-%m-%d %H:%M:%S"
     LOG_FORMAT = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
     LOG_LEVEL = 'INFO'
+    LOG_PARSER = os.getenv('log_parser') or 'BASIC'
 
 
 class LocalConfig(BaseConfig):
