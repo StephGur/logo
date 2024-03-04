@@ -37,3 +37,10 @@ log_to_level: dict = {
     LogLevel.ERROR.value: logger.error,
     LogLevel.EXCEPTION.value: logger.exception
 }
+
+
+def get_log_level(log_level: str):
+    if log_level not in log_to_level:
+        return logger.info
+
+    return log_to_level[log_level]

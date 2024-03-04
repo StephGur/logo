@@ -2,7 +2,7 @@ import json
 from socketserver import BaseRequestHandler
 
 from config import LOGO_CONFIG
-from logo.helpers import log_to_level
+from logo.helpers import get_log_level
 from logo.parsers.basic_parser import BasicLogMessageParser, LogMessageResult, LogMessageParserError, \
     BaseLogMessageParser
 
@@ -30,6 +30,7 @@ class TcpLogHandler(BaseRequestHandler):
 
         try:
             message: dict = json.loads(self.request.recv(1024).strip())
+            print(self.request.recv(1024).strip(), 'message')
             parsed_log_message: LogMessageResult = parser.parse(message)
             return parsed_log_message
         except ValueError as e:
@@ -40,4 +41,4 @@ class TcpLogHandler(BaseRequestHandler):
         return f"{client_ip} | {parsed_log_message.build_result_string()}"
 
     def _write_log(self, parsed_message: LogMessageResult):
-        log_to_level[parsed_message.log_level](self._format_message_new(parsed_message))
+        get_log_level(parsed_message.log_level)(self._format_message_new(parsed_message))
