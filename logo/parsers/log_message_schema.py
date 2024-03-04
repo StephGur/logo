@@ -5,7 +5,7 @@ from marshmallow import Schema, fields, post_load, ValidationError
 from logo.helpers import LogLevel, TIME_FORMAT, is_valid_ip
 
 
-# can also be done with marshmallow schem just didn't have time to replace it :(
+# Can also be done with marshmallow schem just didn't have time to replace it :(
 
 
 def validate_ip(ip: str):
