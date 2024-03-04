@@ -4,6 +4,9 @@ from enum import Enum
 from logo.logging import logger
 
 
+TIME_FORMAT: str = "%Y-%m-%d %H:%M:%S"
+
+
 def is_valid_ip(ip: str) -> bool:
     try:
         # Attempt to create an IPv4 or IPv6 object from the input
@@ -14,14 +17,11 @@ def is_valid_ip(ip: str) -> bool:
         return False
 
 
-def is_valid_port(port: int):
+def is_valid_port(port: int) -> bool:
     if 1 <= port <= 65535:
         return True
 
     return False
-
-
-TIME_FORMAT: str = "%Y-%m-%d %H:%M:%S"
 
 
 class LogLevel(Enum):
@@ -31,7 +31,7 @@ class LogLevel(Enum):
     EXCEPTION = 'EXCEPTION'
 
 
-log_to_level = {
+log_to_level: dict = {
     LogLevel.DEBUG.value: logger.debug,
     LogLevel.INFO.value: logger.info,
     LogLevel.ERROR.value: logger.error,

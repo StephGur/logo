@@ -3,13 +3,14 @@ from socketserver import BaseRequestHandler
 
 from config import LOGO_CONFIG
 from logo.helpers import log_to_level
-from logo.parsers.basic_parser import BasicLogMessageParser, LogMessageResult, LogMessageParserError
+from logo.parsers.basic_parser import BasicLogMessageParser, LogMessageResult, LogMessageParserError, \
+    BaseLogMessageParser
 
 TIME_FORMAT: str = "%Y-%m-%d %H:%M:%S"
 
 
 class TcpLogHandler(BaseRequestHandler):
-    _parsers = {
+    _parsers: dict[str, BaseLogMessageParser] = {
        'BASIC': BasicLogMessageParser()
     }
 
@@ -34,7 +35,7 @@ class TcpLogHandler(BaseRequestHandler):
         except ValueError as e:
             raise LogMessageParserError("Please Provide a valid json!") from e
 
-    def _format_message_new(self, parsed_log_message: LogMessageResult):
+    def _format_message_new(self, parsed_log_message: LogMessageResult) -> str:
         client_ip: str = self.client_address[0]
         return f"{client_ip} | {parsed_log_message.build_result_string()}"
 
