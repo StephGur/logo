@@ -3,14 +3,13 @@ from socketserver import BaseRequestHandler
 
 from config import LOGO_CONFIG
 from logo.helpers import get_log_level
-from logo.parsers.basic_parser import BasicLogMessageParser, LogMessageResult, LogMessageParserError, \
-    BaseLogMessageParser
+from logo.parsers.basic_parser import BasicLogMessageParser, LogMessageResult, LogMessageParserError
 
 TIME_FORMAT: str = "%Y-%m-%d %H:%M:%S"
 
 
 class TcpLogHandler(BaseRequestHandler):
-    _parsers: dict[str, BaseLogMessageParser] = {
+    _parsers: dict = {
        'BASIC': BasicLogMessageParser()
     }
 
@@ -30,7 +29,6 @@ class TcpLogHandler(BaseRequestHandler):
 
         try:
             message: dict = json.loads(self.request.recv(1024).strip())
-            print(self.request.recv(1024).strip(), 'message')
             parsed_log_message: LogMessageResult = parser.parse(message)
             return parsed_log_message
         except ValueError as e:
