@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from logo.helpers import LogLevel, is_valid_ip, TIME_FORMAT
+from logo.helpers import LogLevel, is_valid_ip, TIME_FORMAT, is_valid_port
 
 
 class LogMessageParserError(Exception):
@@ -33,11 +33,26 @@ class BasicLogMessageParser(BaseLogMessageParser):
         if 'message' not in log_message:
             raise LogMessageParserError("No message provided! Please provide a message")
 
-        parsed_result = LogMessageResult(log_message['message'])
+        parsed_result = LogMessageResult(str(log_message['message']))
         parsed_result.log_level = log_message.get('logLevel', LogLevel.INFO.value)
-        parsed_result.log_service_port = log_message.get('logServicePort')
 
-        if 'logServiceAddress' in log_message and is_valid_ip(log_message['logServiceAddress']):
-            parsed_result.log_service_address = log_message.get('logServiceAddress')
+        self._validate_ip(log_message, parsed_result)
+        self._validate_port(log_message, parsed_result)
 
         return parsed_result
+
+    def _validate_port(self, log_message: dict, parsed_result: LogMessageResult):
+        if 'logServicePort' in log_message:
+            log_service_port = log_message['logServicePort']
+            if not isinstance(log_service_port, int) or not is_valid_port(log_service_port):
+                raise LogMessageParserError("Please provide a valid port")
+            else:
+                parsed_result.log_service_port = log_service_port
+
+    def _validate_ip(self, log_message: dict, parsed_result: LogMessageResult):
+        if 'logServiceAddress' in log_message:
+            log_service_address = log_message['logServiceAddress']
+            if not isinstance(log_service_address, str) or not is_valid_ip(log_service_address):
+                raise LogMessageParserError("Please provide a valid ip address")
+            else:
+                parsed_result.log_service_address = log_message['logServiceAddress']

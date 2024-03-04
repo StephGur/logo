@@ -14,6 +14,13 @@ def is_valid_ip(ip: str) -> bool:
         return False
 
 
+def is_valid_port(port: int):
+    if 1 <= port <= 65535:
+        return True
+
+    return False
+
+
 TIME_FORMAT: str = "%Y-%m-%d %H:%M:%S"
 
 
